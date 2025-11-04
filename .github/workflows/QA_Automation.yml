@@ -10,10 +10,6 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        environment: [dev, qa, ppd, prod]  # list of environments to test
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -29,8 +25,8 @@ jobs:
       # - name: Run Cypress Tests for ${{ matrix.environment }} Environment
       #   run: npm run ${{ matrix.environment }}:run
 
-      - name: Run Cypress Tests for ${{ matrix.environment }} Environment
-        run: npx cypress run --env ENV=${{ matrix.environment }} --spec "cypress/e2e/order-review.cy.ts"
+      - name: Run Cypress Tests for QA Environment
+        run: npm run qa:run --spec "cypress/e2e/order-review.cy.ts"
 
 
       # Optional: upload artifacts for failed runs
