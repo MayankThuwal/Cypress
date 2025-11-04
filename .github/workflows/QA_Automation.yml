@@ -29,10 +29,26 @@ jobs:
         run: | 
           npm init
           npm install ts-node typescript --save-dev
+          npm install mochawesome mochawesome-merge mochawesome-report-generator --save-dev
 
       # Run Cypress test for QA environment
       - name: Run Cypress Test
         run: npx cypress run --env ENV=qa --spec "cypress/e2e/order/order-review.cy.ts"
+
+      # Merge and generate Mochawesome HTML report
+      - name: Generate Mochawesome Report
+        if: always()
+        run: |
+          npx mochawesome-merge cypress/reports/*.json > cypress/reports/mochawesome.json
+          npx marge cypress/reports/mochawesome.json --reportDir cypress/reports --inline
+
+      # Upload Cypress HTML Report (always)
+      - name: Upload Cypress HTML Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-html-report
+          path: cypress/reports
 
       # Upload artifacts only if test fails
       - name: Upload Cypress Artifacts (Videos & Screenshots)
