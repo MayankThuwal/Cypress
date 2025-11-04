@@ -39,8 +39,12 @@ jobs:
       - name: Generate Mochawesome Report
         if: always()
         run: |
-          npx mochawesome-merge cypress/reports/*.json > cypress/reports/mochawesome.json
-          npx marge cypress/reports/mochawesome.json --reportDir cypress/reports --inline
+          mkdir -p cypress/reports
+          npx mochawesome-merge cypress/reports/*.json > cypress/reports/mochawesome.json || echo "No report JSONs found"
+          if [ -f "cypress/reports/mochawesome.json" ]; then
+            npx marge cypress/reports/mochawesome.json --reportDir cypress/reports --inline
+          else
+            echo "No mochawesome.json found. Skipping HTML generation."
 
       # Upload Cypress HTML Report (always)
       - name: Upload Cypress HTML Report
