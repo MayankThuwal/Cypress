@@ -9,6 +9,9 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./  #All steps will execute from repo root
 
     steps:
       # Checkout repository (mandatory)
