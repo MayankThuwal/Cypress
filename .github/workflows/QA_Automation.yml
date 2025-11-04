@@ -20,7 +20,7 @@ jobs:
           node-version: '18'
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm init
 
       # - name: Run Cypress Tests for ${{ matrix.environment }} Environment
       #   run: npm run ${{ matrix.environment }}:run
