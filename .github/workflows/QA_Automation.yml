@@ -26,11 +26,13 @@ jobs:
 
       # Install dependencies from your existing package.json
       - name: Install Dependencies
-        run: npm init
+        run: | 
+          npm init
+          npm install ts-node typescript --save-dev
 
       # Run Cypress test for QA environment
       - name: Run Cypress Test
-        run: npx cypress run --env ENV=qa --spec "cypress/e2e/order-review.cy.ts" 
+        run: npx cypress run --env ENV=qa --spec "cypress/e2e/order-review.cy.ts"
 
       # Upload artifacts only if test fails
       - name: Upload Cypress Artifacts (Videos & Screenshots)
