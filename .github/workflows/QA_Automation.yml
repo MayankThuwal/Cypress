@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./  #All steps will execute from repo root
+        working-directory: KloudShip.Automation.Cypress.ECSLite  #All steps will execute from repo root
 
     steps:
       # Checkout repository (mandatory)
@@ -28,9 +28,9 @@ jobs:
       - name: Install Dependencies
         run: npm init
 
-      # Run Cypress test for QA environment (single test case)
-      - name: Run Cypress Test - order-review.cy.ts (QA)
-        run: npx cypress run --env ENV=qa --spec "cypress/e2e/order-review.cy.ts"
+      # Run Cypress test for QA environment
+      - name: Run Cypress Test
+        run: npx cypress run --env ENV=qa --spec "cypress/e2e/order-review.cy.ts" 
 
       # Upload artifacts only if test fails
       - name: Upload Cypress Artifacts (Videos & Screenshots)
