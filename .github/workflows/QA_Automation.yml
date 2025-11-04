@@ -1,40 +1,40 @@
-name: Cypress Multi-Environment Tests
+name: Cypress QA-Environment Tests
 
 on:
   workflow_dispatch: # allows manual run from Actions tab
   schedule:
     # Every day at 7:00 AM IST (1:30 AM UTC)
     - cron: '30 1 * * *'
-    
+
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
 
     steps:
-      # - name: Checkout Repository
-      #   uses: actions/checkout@v4
+      # Checkout repository (mandatory)
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
+      # Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
+      # Install dependencies from your existing package.json
       - name: Install Dependencies
-        run: npm init
+        run: npm ci
 
-      # - name: Run Cypress Tests for ${{ matrix.environment }} Environment
-      #   run: npm run ${{ matrix.environment }}:run
+      # Run Cypress test for QA environment (single test case)
+      - name: Run Cypress Test - order-review.cy.ts (QA)
+        run: npx cypress run --env ENV=qa --spec "cypress/e2e/order-review.cy.ts"
 
-      - name: Run Cypress Tests for QA Environment
-        run: npm run qa:run --spec "cypress/e2e/order-review.cy.ts"
-
-
-      # Optional: upload artifacts for failed runs
+      # Upload artifacts only if test fails
       - name: Upload Cypress Artifacts (Videos & Screenshots)
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: cypress-artifacts-${{ matrix.environment }}
+          name: cypress-artifacts-qa
           path: |
             cypress/videos
             cypress/screenshots
