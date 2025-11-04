@@ -1,0 +1,71 @@
+{
+    "invalidItem": {
+        "name": "W",
+        "weight": -2,
+        "totalValue": -1,
+        "quantity": 1
+    },
+    "validItem": {
+        "name": "Wings Earbuds",
+        "weight": 500,
+        "totalValue": 550,
+        "quantity": 2
+    },
+    "invalidRecipientAddress": {
+        "firstName": "R",
+        "lastName": "V",
+        "phone": 9876,
+        "email": "rahul.verma@com",
+        "company": "V",
+        "street1": "Fla",
+        "street2": "Sec",
+        "street3": "N",
+        "zip": "110",
+        "city": "N",
+        "state": "D"
+    },
+    "validRecipientAddress": {
+        "firstName": "Mayank",
+        "lastName": "Thuwal",
+        "phone": "9354456354",
+        "email": "mayank.thuwal@impledge.com",
+        "company": "Mayank Thuwal",
+        "street1": "Flat 12B, Shanti Apartments",
+        "street2": "Sector 15, MG Road",
+        "street3": "Near City Mall",
+        "zip": "201010",
+        "city": "New Delhi",
+        "state": "Delhi"
+    },
+    "invalidPackage":{
+        "name": "Zerox Box",
+        "length": -2,
+        "width": -2,
+        "height": -2,
+        "dimensionUnit": "inp",
+        "weight": 200,
+        "weightUnit": "cmd"
+    },
+    "invalidWeightPackage":{
+        "name": "Zerox Box",
+        "length": 2,
+        "width": 2,
+        "height": 2,
+        "dimensionUnit": "inp",
+        "weight": 200,
+        "weightUnit": "cmd"
+    },
+    "validPackage":{
+        "name": "Zerox Box",
+        "length": 2,
+        "width": 2,
+        "height": 2,
+        "dimensionUnit": "inp",
+        "weight": 500,
+        "weightUnit": "cmd"
+    },
+    "complianceDetails":{
+        "type": "Invoice",
+        "number": "TestInvoice"
+    }
+}

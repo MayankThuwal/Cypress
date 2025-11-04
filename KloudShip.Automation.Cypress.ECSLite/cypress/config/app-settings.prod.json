@@ -1,0 +1,10 @@
+{
+    "application": {
+        "appBaseUrl": "https://ecs.kloudship.com/",
+        "credentials": {
+            "email": "load-admin1@impledge.com",
+            "password": "Impledge@123"
+        },
+        "version": "1.2515.0"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "application": {
+        "appBaseUrl": "https://ecs-qa.kloudship.com/",
+        "credentials": {
+            "email": "load-qa-admin1@impledge.com",
+            "password": "Password1",
+            "forgotPasswordEmail": "kloudship20250716@yopmail.com"
+        },
+        "version": "1.2519.0"
+    }
+}

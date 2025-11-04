@@ -1,0 +1,33 @@
+{
+    "pickupLocation": {
+        "name": "Export Warehouse",
+        "address": {
+            "firstName": "Arjun",
+            "lastName": "Verma",
+            "company": "FastTrack Courier Services",
+            "street1": "A-101, Surya Apartments",
+            "street2": "Sector 18",
+            "street3": "Near Central Park (Landmark)",
+            "city": "New Delhi",
+            "stateCode": "DL",
+            "zip": "281121",
+            "countryCode": "IN",
+            "phone": "9354456354",
+            "phoneCode": "+91",
+            "email": "mayank.thuwal@impledge.com"
+        }
+    },
+    
+    "validUser": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "businessName": "Automation Company",
+        "mobile": "9354456354",
+        "email": "john.doe@example.com",
+        "password": "Password1"
+    },
+
+    "validStore": {
+        "name" : "Manual Automation Store"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "application": {
+        "appBaseUrl": "https://ecs-ppd.kloudship.com/",
+        "credentials": {
+            "email": "load-ppd-admin1@impledge.com",
+            "password": "Password1",
+            "forgotPasswordEmail": "test-ppd-newuser2529.1.3@yopmail.com"
+        },
+        "version": "1.2515.0"
+    }
+}

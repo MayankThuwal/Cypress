@@ -1,0 +1,35 @@
+{
+  "invalidLoginUser": {
+    "email": "fake@example.com",
+    "password": "Password2"
+  },
+  
+  "validSignUpUser": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "businessName": "Automation Company",
+    "mobile": "9354456354",
+    "email": "john.doe@example.com",
+    "password": "Password1"
+  },
+
+  "invalidSignUpUser": {
+    "firstName": "J",
+    "lastName": "D",
+    "businessName": "T",
+    "mobile": "123",
+    "email": "invalid@gmail",
+    "password": "pass"
+  },
+
+  "existingSignUpUser":{
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "businessName": "Existing Company",
+    "mobile": "9876543210",
+    "email": "test-qa-admin1@impledge.com",
+    "password": "Password1"
+  }
+
+
+}
