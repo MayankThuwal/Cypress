@@ -23,7 +23,7 @@ jobs:
 
       # Install dependencies from your existing package.json
       - name: Install Dependencies
-        run: npm ci
+        run: npm init
 
       # Run Cypress test for QA environment (single test case)
       - name: Run Cypress Test - order-review.cy.ts (QA)
