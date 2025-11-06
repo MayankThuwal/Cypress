@@ -5,23 +5,21 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    
     "dev:open": "npx cypress open --env ENV=dev",
     "qa:open": "npx cypress open --env ENV=qa",
     "ppd:open": "npx cypress open --env ENV=ppd",
     "prod:open": "npx cypress open --env ENV=prod",
-    
     "dev:run": "npx cypress run --env ENV=dev",
     "qa:run": "npx cypress run --env ENV=qa",
     "ppd:run": "npx cypress run --env ENV=ppd",
     "prod:run": "npx cypress run --env ENV=prod"
-
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "cypress-mochawesome-reporter": "^4.0.2",
     "typescript": "^5.8.3"
   },
   "devDependencies": {

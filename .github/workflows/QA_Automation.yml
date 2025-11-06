@@ -29,7 +29,6 @@ jobs:
         run: | 
           npm init
           npm install ts-node typescript --save-dev
-          npm install --save-dev cypress-mochawesome-reporter mochawesome mochawesome-merge mochawesome-report-generator
 
       # Run Cypress test for QA environment
       - name: Run Cypress Test
