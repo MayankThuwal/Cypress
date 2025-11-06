@@ -54,10 +54,26 @@ jobs:
         if: always()
         run: wkhtmltopdf cypress/reports/report.html cypress/reports/report.pdf
 
-      # Upload Cypress HTML Report (always)
-      - name: Upload Cypress HTML Report
+      # # Configure AWS credentials
+      # - name: Configure AWS Credentials
+      #   if: always()
+      #   uses: aws-actions/configure-aws-credentials@v4
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: ${{ secrets.AWS_REGION }}
+
+      # Configure AWS credentials
+      - name: Configure AWS Credentials
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          name: report.pdf
-          path: cypress/reports/report.pdf
+          aws-access-key-id: ${{ AKIAZ24ITALM5JBONW6G }}
+          aws-secret-access-key: ${{ 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 }}
+          aws-region: ${{ ap-south-1 }}
+
+      # Upload to S3 Bucket
+      - name: Upload PDF to S3
+        if: always()
+        run: |
+          aws s3 cp cypress/reports/report.pdf s3://${{ mayank-test-987 }}/cypress-reports/$(date +'%Y-%m-%d_%H-%M')-report.pdf
