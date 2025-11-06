@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: KloudShip.Automation.Cypress.ECSLite  #All steps will execute from repo root
+        working-directory: KloudShip.Automation.Cypress.ECSLite # All steps will execute from this subdirectory
 
     steps:
       # Checkout repository (mandatory)
@@ -24,30 +24,29 @@ jobs:
         with:
           node-version: '18'
 
-      # Install dependencies from your existing package.json
+      # FIX: Install all dependencies from the existing package.json
+      # 'npm init' is removed, and 'npm install' alone is used.
       - name: Install Dependencies
-        run: | 
-          npm init
-          npm install mochawesome
+        run: npm install
 
       - name: Ensure report directory exists
-        run: mkdir -p cypress/reports
+        run: mkdir -p cypress/reports/mochawesome-report
 
-      # Run Cypress test for QA environment
+      # FIX: Run Cypress test with corrected reporter flag spacing
       - name: Run Cypress Test
-        run: npx cypress run --env ENV=qa -- reporter mochawesome --reporter-options "reportFilename=chrome-results" --spec "cypress/e2e/order/order-review.cy.ts"
-      
+        run: npx cypress run --env ENV=qa --reporter mochawesome --reporter-options "reportFilename=chrome-results,overwrite=true,html=false,json=true" --spec "cypress/e2e/order/order-review.cy.ts"
+        
+      # Merge all individual Mochawesome JSON files into one
+      - name: Merge Mochawesome JSON
+        if: always()
+        run: |
+          npx mochawesome-merge cypress/reports/chrome-results.json > cypress/reports/report.json
 
-      # # Some folders contain nested JSON, so use **/*.json
-      # - name: Merge Mochawesome JSON
-      #   if: always()
-      #   run: |
-      #     npx mochawesome-merge cypress/reports/**/*.json > cypress/reports/report.json
-
-      # - name: Generate Mochawesome HTML Report
-      #   if: always()
-      #   run: |
-      #     npx marge cypress/reports/report.json --reportDir cypress/reports
+      # Generate the final Mochawesome HTML Report
+      - name: Generate Mochawesome HTML Report
+        if: always()
+        run: |
+          npx marge cypress/reports/report.json --reportDir cypress/reports --inline
 
       # Upload Cypress HTML Report (always)
       - name: Upload Cypress HTML Report
@@ -55,4 +54,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cypress-html-report
-          path: cypress/reports
+          path: cypress/reports/report.html # Path corrected to target the generated HTML file
