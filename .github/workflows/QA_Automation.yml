@@ -29,6 +29,9 @@ jobs:
         run: npm ci
       # Reports are generated because reporter is inside your project package.json
 
+      - name: Ensure report directory exists
+        run: mkdir -p cypress/reports
+
       # Run Cypress test for QA environment
       - name: Run Cypress Test
         run: |
