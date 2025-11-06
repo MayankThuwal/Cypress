@@ -39,6 +39,16 @@ jobs:
             --env ENV=qa \
             --spec "cypress/e2e/order/order-review.cy.ts"
 
+      - name: DEBUG — Show Mochawesome Output
+        if: always()
+        run: |
+          echo "=== ROOT FOLDER ==="
+          ls -R .
+          echo "=== CYPRESS FOLDER ==="
+          ls -R cypress || echo "No cypress folder"
+          echo "=== REPORTS FOLDER ==="
+          ls -R cypress/reports || echo "No reports folder OR no json files"
+      
       # Some folders contain nested JSON, so use **/*.json
       - name: Merge Mochawesome JSON
         if: always()
