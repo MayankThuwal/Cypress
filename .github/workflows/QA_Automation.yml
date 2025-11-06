@@ -11,40 +11,42 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: KloudShip.Automation.Cypress.ECSLite # All steps will execute from this subdirectory
+        # All run steps will execute from inside this folder
+        working-directory: KloudShip.Automation.Cypress.ECSLite 
 
     steps:
-      # Checkout repository (mandatory)
+      # ... (Checkout and Setup Node.js steps are fine) ...
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      # FIX: Install all dependencies from the existing package.json
-      # 'npm init' is removed, and 'npm install' alone is used.
-      - name: Install Dependencies
-        run: | 
+      # FIX 1: Explicitly install the core project dependencies AND the reporter packages.
+      - name: Install Dependencies and Reporters
+        run: |
+          # Install existing dependencies from package.json
           npm install
-          npm install mochawesome
+          # Explicitly install the required reporter packages (since they are missing from package.json)
+          npm install mochawesome mochawesome-merge mochawesome-report-generator --save-dev
 
       - name: Ensure report directory exists
-        run: mkdir -p cypress/reports/mochawesome-report
+        run: mkdir -p cypress/reports
 
-      # FIX: Run Cypress test with corrected reporter flag spacing
+      # This step is correct: uses the installed mochawesome and reporter-options for JSON output.
       - name: Run Cypress Test
         run: npx cypress run --env ENV=qa --reporter mochawesome --reporter-options "reportFilename=chrome-results,overwrite=true,html=false,json=true" --spec "cypress/e2e/order/order-review.cy.ts"
         
-      # Merge all individual Mochawesome JSON files into one
-      - name: Merge Mochawesome JSON
+      # Since only one spec is run, we just copy the output file to the expected report name.
+      - name: Merge/Rename Mochawesome JSON
         if: always()
         run: |
-          npx mochawesome-merge cypress/reports/chrome-results.json > cypress/reports/report.json
+          # Copy the single generated JSON file and rename it for the 'marge' step.
+          cp cypress/reports/chrome-results.json cypress/reports/report.json
 
-      # Generate the final Mochawesome HTML Report
+      # Generate the final Mochawesome HTML Report using the merged JSON.
       - name: Generate Mochawesome HTML Report
         if: always()
         run: |
@@ -56,4 +58,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cypress-html-report
-          path: cypress/reports/report.html # Path corrected to target the generated HTML file
+          path: cypress/reports/report.html
