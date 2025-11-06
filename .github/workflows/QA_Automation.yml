@@ -27,7 +27,7 @@ jobs:
       # Install dependencies from your existing package.json
       - name: Install Dependencies
         run: | 
-          npm ci
+          npm init
           npm Install mochawesome
 
       - name: Ensure report directory exists
