@@ -11,11 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        # All run steps will execute from inside this folder
+        # Ensures all commands run inside the Cypress project folder
         working-directory: KloudShip.Automation.Cypress.ECSLite 
 
     steps:
-      # ... (Checkout and Setup Node.js steps are fine) ...
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -24,31 +23,26 @@ jobs:
         with:
           node-version: '18'
 
-      # FIX 1: Explicitly install the core project dependencies AND the reporter packages.
-      - name: Install Dependencies and Reporters
-        run: |
-          # Install existing dependencies from package.json
-          npm install
+      # Install all dependencies inside the working directory.
+      - name: Install All Dependencies
+        run: npm install
 
       - name: Ensure report directory exists
         run: mkdir -p cypress/reports
 
-      # This step is correct: uses the installed mochawesome and reporter-options for JSON output.
+      # Added 'reportDir=cypress/reports' to ensure the JSON output goes to the right place.
       - name: Run Cypress Test
-        run: npx cypress run --env ENV=qa --reporter mochawesome --reporter-options "reportFilename=chrome-results,overwrite=true,html=false,json=true" --spec "cypress/e2e/order/order-review.cy.ts"
+        run: npx cypress run --env ENV=qa --reporter mochawesome --reporter-options "reportDir=cypress/reports,reportFilename=chrome-results,overwrite=true,html=false,json=true" --spec "cypress/e2e/order/order-review.cy.ts"
         
-      # Since only one spec is run, we just copy the output file to the expected report name.
-      - name: Merge/Rename Mochawesome JSON
+      # Copy the single generated JSON file to a standard name for 'marge'.
+      - name: Copy/Rename Mochawesome JSON
         if: always()
-        run: |
-          # Copy the single generated JSON file and rename it for the 'marge' step.
-          cp cypress/reports/chrome-results.json cypress/reports/report.json
+        run: cp cypress/reports/chrome-results.json cypress/reports/report.json
 
-      # Generate the final Mochawesome HTML Report using the merged JSON.
+      # Generate the final Mochawesome HTML Report.
       - name: Generate Mochawesome HTML Report
         if: always()
-        run: |
-          npx marge cypress/reports/report.json --reportDir cypress/reports --inline
+        run: npx marge cypress/reports/report.json --reportDir cypress/reports --inline
 
       # Upload Cypress HTML Report (always)
       - name: Upload Cypress HTML Report
