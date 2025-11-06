@@ -1,6 +1,9 @@
 import { defineConfig } from "cypress";
 
 export default defineConfig({
+
+  reporter: "mochawesome", 
+
   viewportWidth: 1366,
   viewportHeight: 639,
   e2e: {
