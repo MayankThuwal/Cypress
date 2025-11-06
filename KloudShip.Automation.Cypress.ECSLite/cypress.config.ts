@@ -1,21 +1,27 @@
-import { defineConfig } from 'cypress';
+import { defineConfig } from "cypress";
 
 export default defineConfig({
   viewportWidth: 1366,
   viewportHeight: 639,
+
+  reporter: "cypress-mochawesome-reporter",
+  reporterOptions: {
+    reportDir: "cypress/reports",
+    charts: true,
+    overwrite: false,
+    html: true,
+    json: true,
+  },
+
   e2e: {
     // To override the default browser security and cross-origin issue
     chromeWebSecurity: false,
+
     setupNodeEvents(on, config) {
+      require("cypress-mochawesome-reporter/plugin")(on);
+      return config;
     },
     // For recoard and play
     experimentalStudio: true,
-  },
-  reporter: "mochawesome",
-  reporterOptions: {
-    reportDir: "cypress/reports",
-    overwrite: false,
-    html: false,
-    json: true
   },
 });
