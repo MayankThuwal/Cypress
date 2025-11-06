@@ -26,21 +26,22 @@ jobs:
 
       # Install dependencies from your existing package.json
       - name: Install Dependencies
-        run: | 
-          npm init
-          npm install ts-node typescript --save-dev
+        run: npm ci
+      # Reports are generated because reporter is inside your project package.json
 
       # Run Cypress test for QA environment
       - name: Run Cypress Test
-        run: npx cypress run --env ENV=qa --spec "cypress/e2e/order/order-review.cy.ts"
+        run: |
+          npx cypress run \
+            --env ENV=qa \
+            --spec "cypress/e2e/order/order-review.cy.ts"
 
-      # Merge mochawesome JSON reports
+      # Some folders contain nested JSON, so use **/*.json
       - name: Merge Mochawesome JSON
         if: always()
         run: |
-          npx mochawesome-merge cypress/reports/*.json > cypress/reports/report.json
+          npx mochawesome-merge cypress/reports/**/*.json > cypress/reports/report.json
 
-      # Generate the final HTML report
       - name: Generate Mochawesome HTML Report
         if: always()
         run: |
