@@ -35,11 +35,7 @@ jobs:
 
       # Run Cypress test for QA environment
       - name: Run Cypress Test
-        run: |
-          npx cypress run \
-            --env ENV=qa \
-            -- reporter mochawesome --reporter-options "reportFilename=chrome-results" 
-            --spec "cypress/e2e/order/order-review.cy.ts"
+        run: npx cypress run --env ENV=qa -- reporter mochawesome --reporter-options "reportFilename=chrome-results" --spec "cypress/e2e/order/order-review.cy.ts"
       
 
       # # Some folders contain nested JSON, so use **/*.json
