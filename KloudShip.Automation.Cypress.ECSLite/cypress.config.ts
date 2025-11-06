@@ -11,4 +11,11 @@ export default defineConfig({
     // For recoard and play
     experimentalStudio: true,
   },
+  reporter: "mochawesome",
+  reporterOptions: {
+    reportDir: "cypress/reports",
+    overwrite: false,
+    html: false,
+    json: true
+  },
 });
