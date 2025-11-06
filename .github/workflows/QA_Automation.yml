@@ -28,7 +28,7 @@ jobs:
       - name: Install Dependencies
         run: | 
           npm init
-          npm Install mochawesome
+          npm install mochawesome
 
       - name: Ensure report directory exists
         run: mkdir -p cypress/reports
