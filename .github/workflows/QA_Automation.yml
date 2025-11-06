@@ -27,7 +27,9 @@ jobs:
       # FIX: Install all dependencies from the existing package.json
       # 'npm init' is removed, and 'npm install' alone is used.
       - name: Install Dependencies
-        run: npm install
+        run: | 
+          npm install
+          npm install mochawesome
 
       - name: Ensure report directory exists
         run: mkdir -p cypress/reports/mochawesome-report
