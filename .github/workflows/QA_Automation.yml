@@ -29,8 +29,6 @@ jobs:
         run: |
           # Install existing dependencies from package.json
           npm install
-          # Explicitly install the required reporter packages (since they are missing from package.json)
-          npm install mochawesome mochawesome-merge mochawesome-report-generator --save-dev
 
       - name: Ensure report directory exists
         run: mkdir -p cypress/reports
