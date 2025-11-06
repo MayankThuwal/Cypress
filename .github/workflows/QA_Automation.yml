@@ -68,12 +68,12 @@ jobs:
         if: always()
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ AKIAZ24ITALM5JBONW6G }}
-          aws-secret-access-key: ${{ 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 }}
-          aws-region: ${{ ap-south-1 }}
+          aws-access-key-id: AKIAZ24ITALM5JBONW6G
+          aws-secret-access-key: 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
+          aws-region: ap-south-1
 
       # Upload to S3 Bucket
       - name: Upload PDF to S3
         if: always()
         run: |
-          aws s3 cp cypress/reports/report.pdf s3://${{ mayank-test-987 }}/cypress-reports/$(date +'%Y-%m-%d_%H-%M')-report.pdf
+          aws s3 cp cypress/reports/report.pdf s3://mayank-test-987/cypress-reports/$(date +'%Y-%m-%d_%H-%M')-report.pdf
