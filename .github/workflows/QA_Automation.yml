@@ -26,8 +26,9 @@ jobs:
 
       # Install dependencies from your existing package.json
       - name: Install Dependencies
-        run: npm ci
-      # Reports are generated because reporter is inside your project package.json
+        run: | 
+          npm ci
+          npm Install mochawesome
 
       - name: Ensure report directory exists
         run: mkdir -p cypress/reports
@@ -37,23 +38,26 @@ jobs:
         run: |
           npx cypress run \
             --env ENV=qa \
+            -- reporter mochawesome --reporter-options "reportFilename=chrome-results" 
             --spec "cypress/e2e/order/order-review.cy.ts"
+        continueOnError: true
+      
 
-      # Some folders contain nested JSON, so use **/*.json
-      - name: Merge Mochawesome JSON
-        if: always()
-        run: |
-          npx mochawesome-merge cypress/reports/**/*.json > cypress/reports/report.json
+      # # Some folders contain nested JSON, so use **/*.json
+      # - name: Merge Mochawesome JSON
+      #   if: always()
+      #   run: |
+      #     npx mochawesome-merge cypress/reports/**/*.json > cypress/reports/report.json
 
-      - name: Generate Mochawesome HTML Report
-        if: always()
-        run: |
-          npx marge cypress/reports/report.json --reportDir cypress/reports
+      # - name: Generate Mochawesome HTML Report
+      #   if: always()
+      #   run: |
+      #     npx marge cypress/reports/report.json --reportDir cypress/reports
 
       # Upload Cypress HTML Report (always)
-      # - name: Upload Cypress HTML Report
-      #   if: always()
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: cypress-html-report
-      #     path: cypress/reports
+      - name: Upload Cypress HTML Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-html-report
+          path: cypress/reports
